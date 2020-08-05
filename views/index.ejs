@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/base.css">
+  </head>
+  <body>
+
+    <div class="container">
+      <h1>Welcome to Chat App!</h1>
+      
+      <% if(messages.error) { %>
+        <div class="row col-lg-12">
+          <h3 class="alert-danger">
+            <%= messages.error %>
+          </h3>
+        </div>
+      <% } %>
+
+      <div class="row col-lg-12">
+        <h5>Please log in</h5>
+      </div>
+      <div class="row col-lg-12">
+        <form action="/login" method="post">
+          <div class="form-group">
+            <input class="form-control" type="text" name="username" placeholder="name" maxLength="20" required autofocus/>
+            <input class="form-control" type="text" name="password" value="password" hidden/>
+          </div>
+          <button class="btn btn-outline-info" type="submit">Log In</button>
+        </form>
+      </div>
+
+      <hr/>
+      <div class="row col-lg-12">
+        <h5><strong>If new</strong>, please create chat user</h5>
+      </div>
+      <div class="row col-lg-12">
+        <form action="/register" method="post">
+          <div class="form-group">
+            <input class="form-control" type="text" name="username" placeholder="new name" maxlength="20" required/>
+          </div>
+          <button class="btn btn-outline-dark" type="submit">Create</button>
+        </form>
+      </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

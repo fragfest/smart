@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/base.css">
+  </head>
+  <body>
+
+    <div class="container">
+      <h1>Chat Room: <%= name %> </h1>
+
+      <div class="row col-lg-12">
+        <h5><a href="/rooms">Back</a></h5>
+      </div>
+      <hr/>
+      
+      <div class="row col-lg-12 mb-3">
+        <form id="send" class="row" action="" method="post">
+          <div class="same-row">
+              <input id="msg" class="form-control btn-room mt-0" type="text" name="message"  maxLength="20" required autofocus/>
+              <% if( id === 0 ) { %>
+                <select id="selectUserId" class="btn-room mt-0 ml-1" name="selectUserId">
+                  <% users.forEach( user => { %>
+                    <option class="btn-room" value="<%= user.id %>"> <%= user.name %> </option>
+                  <% }); %>
+                </select>
+              <% } %>
+              <button class="btn btn-outline-dark btn-room mt-0 ml-1" type="submit">Send</button>
+          </div>
+        </form>
+      </div>
+
+      <ul id="chat-messages">
+        <% if( id === 0 ) { %>
+          <% messages.forEach( message => { %>
+            <li>
+              <div class="row">
+                <div class="col-sm-8">
+                    <p><strong> <%= message.msg %> </strong></p>
+                </div>
+                <div class="col-sm-4">
+                  <p><small>to: <%= message.recipient %> from: <%= message.author %> </small></p>
+                </div>
+              </div>
+            </li>
+            <% }); %>
+        <% } else { %>
+          <% messages.forEach( message => { %>
+            <li>
+              <div class="row">
+                <div class="col-sm-8">
+                  <p><strong> <%= message.msg %> </strong></p>
+                </div>
+                <div class="col-sm-4">
+                    <p><small>from: <%= message.author %> </small></p>
+                </div>
+              </div>
+            </li>
+          <% }); %>
+        <% } %>
+      </ul>
+    </div>
+
+    <div id="userId" hidden><%= userId %></div>
+    <div id="roomId" hidden><%= id %></div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="/socket.js"></script>
+  </body>
+</html>
